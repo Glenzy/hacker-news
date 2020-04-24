@@ -71,7 +71,7 @@ export const getStaticProps: GetStaticProps = async () => {
         }
       })
     );
-    console.log(withComments[0]);
+
     return {
       props: {
         stories: withComments,

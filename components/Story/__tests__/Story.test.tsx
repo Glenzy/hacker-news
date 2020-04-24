@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import Story from './Story';
+import Story from '../Story';
 
 describe('<Story /> component', () => {
   const MOCK = {
