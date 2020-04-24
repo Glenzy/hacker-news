@@ -2,10 +2,18 @@ import { GetStaticProps } from 'next';
 import fetch from 'isomorphic-unfetch';
 import { API_ENDPOINT } from 'utilities/constants';
 import { getData } from 'utilities/mixins';
+import Grid from 'components/common/Grid';
+import Container from 'components/common/Container';
+import GridItem from 'components/common/GridItem';
+import Story from 'components/Story';
+import Error from 'components/Error';
 
-type StoryTypes = 'story' | 'comment' | 'job';
+interface CommentProps {
+  by: string;
+  text: HTMLAllCollection;
+}
 
-interface Story {
+export interface API_Data {
   by: string;
   descendants: number;
   id: number;
@@ -13,48 +21,69 @@ interface Story {
   score: number;
   time: number;
   title: string;
-  type: StoryTypes;
+  type: string;
   url: string;
+  comments: CommentProps[] | any[];
 }
 
-const Main = ({ stories }) => {
+interface StoryProps {
+  stories?: API_Data[];
+  error?: string;
+}
+
+const Main = ({ stories, error }: StoryProps) => {
+  if (error) return <Error error={error} />;
   return (
-    <ul>
-      {stories.map((story, index) => {
-        return (
-          <li key={index}>
-            <b>{index}</b> {story.title + '  ' + story.kids.length}
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <Container>
+        <Grid>
+          <ul>
+            {stories.map((story, index) => {
+              return (
+                <GridItem key={index}>
+                  <Story {...story} index={index} />
+                </GridItem>
+              );
+            })}
+          </ul>
+        </Grid>
+      </Container>
+    </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const storyIDs = await (await fetch(`${API_ENDPOINT}/topstories.json`)).json();
-  storyIDs.length = 10;
+  try {
+    const storyIDs = await (await fetch(`${API_ENDPOINT}/topstories.json`)).json();
+    storyIDs.length = 10;
+    const stories: API_Data[] = await Promise.all(storyIDs.map(async (id) => await getData(id)));
 
-  const stories: Story[] = await Promise.all(storyIDs.map(async (id) => await getData(id)));
+    const withComments = await Promise.all(
+      stories.map(async (story) => {
+        if (story.kids) {
+          story.kids.length = Math.min(story.kids.length, 20);
+          const comments = await Promise.all(story.kids.map(async (id) => await getData(id)));
+          story.comments = comments.length && [...comments];
+          return story;
+        } else {
+          story.comments = [];
+          return story;
+        }
+      })
+    );
 
-  const withComments = await Promise.all(
-    stories.map(async (story) => {
-      if (story.kids) {
-        story.kids.length = Math.min(story.kids.length, 20);
-        const comments = await Promise.all(story.kids.map(async (id) => await getData(id)));
-        story.kids = [...comments];
-        return story;
-      } else {
-        story;
-      }
-    })
-  );
-
-  return {
-    props: {
-      stories: withComments,
-    },
-  };
+    return {
+      props: {
+        stories: withComments,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        error: 'Error loading stories',
+      },
+    };
+  }
 };
 
 export default Main;
