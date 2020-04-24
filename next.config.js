@@ -1,6 +1,7 @@
 const withFonts = require('next-fonts');
 module.exports = withFonts({
-  webpack(config, { isServer }) {
+  webpack(config, { isServer, webpack }) {
+    config.plugins.push(new webpack.IgnorePlugin(/\/__tests__\//));
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
       loader: require.resolve('babel-loader'),
