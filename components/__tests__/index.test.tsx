@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Main from '../index';
+import Main from '../../pages/index';
 
 describe('<Main /> component', () => {
   const MOCK = [
