@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "dependencies": {
     "@testing-library/jest-dom": "5.4.0",
@@ -33,6 +34,7 @@
     "next-fonts": "^1.1.0",
     "prettier": "^2.0.5",
     "react": "16.13.1",
+    "react-animate-height": "^2.0.21",
     "react-dom": "16.13.1",
     "react-test-renderer": "^16.13.1",
     "styled-components": "^5.1.0",

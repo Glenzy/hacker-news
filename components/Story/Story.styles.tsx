@@ -8,6 +8,10 @@ export const Anchor = styled.a`
   text-decoration: none;
   color: #333;
   cursor: pointer;
+  margin: -1.5rem;
+  display: flex;
+  justify-content: start;
+  padding: 1.5rem;
   &:hover {
     color: #ccc;
   }
