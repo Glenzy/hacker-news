@@ -7,7 +7,7 @@ const Container = styled.section`
   margin-left: auto;
   margin-right: auto;
   background-color: ghostwhite;
-  padding: 1rem;
+  padding: 1.5rem;
 `;
 
 export default Container;
