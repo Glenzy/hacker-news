@@ -1,6 +1,6 @@
-import { css } from 'styled-components';
+import styled from 'styled-components';
 
-const StyledGridItem = () => css`
+const UnorderedList = styled.ul`
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%;
@@ -13,4 +13,4 @@ const StyledGridItem = () => css`
     max-width: 100%;
   }
 `;
-export default StyledGridItem;
+export default UnorderedList;

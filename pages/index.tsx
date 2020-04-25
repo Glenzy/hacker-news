@@ -2,11 +2,10 @@ import { GetStaticProps } from 'next';
 import fetch from 'isomorphic-unfetch';
 import { API_ENDPOINT } from 'utilities/constants';
 import { getData } from 'utilities/mixins';
-import Grid from 'components/common/Grid';
 import Container from 'components/common/Container';
-import GridItem from 'components/common/GridItem';
 import Story from 'components/Story';
 import Error from 'components/Error';
+import UnorderedList from 'components/common/UnorderedList';
 
 interface CommentProps {
   by: string;
@@ -36,17 +35,11 @@ const Main = ({ stories, error }: StoryProps) => {
   return (
     <>
       <Container>
-        <Grid>
-          <ul>
-            {stories.map((story, index) => {
-              return (
-                <GridItem key={index}>
-                  <Story {...story} index={index} />
-                </GridItem>
-              );
-            })}
-          </ul>
-        </Grid>
+        <UnorderedList>
+          {stories.map((story, index) => {
+            return <Story {...story} index={index} key={index} />;
+          })}
+        </UnorderedList>
       </Container>
     </>
   );

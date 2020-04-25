@@ -69,4 +69,10 @@ export default createGlobalStyle`
     font-size: 1.6rem;
     line-height: 1.40;
   }
+
+  p, button {
+    letter-spacing: 0.05rem;
+    font-size: 1.7rem;
+    line-height: 2.4rem;
+  }
 `;

@@ -2,29 +2,36 @@ import styled from 'styled-components';
 
 export const List = styled.li`
   list-style: none;
+  margin-bottom: 2rem;
 `;
 
-export const Anchor = styled.a`
+export const Anchor = styled.a.attrs({ target: '_blank' })`
   text-decoration: none;
   color: #333;
+  font-weight: 700;
   cursor: pointer;
-  margin: -1.5rem;
   display: flex;
   justify-content: start;
-  padding: 1.5rem;
   &:hover {
-    color: #ccc;
+    color: #999;
+  }
+  &:visited {
+    color: lightgray;
   }
 `;
 
 export const Number = styled.p`
-  display: inline-block;
-  width: 3rem;
-  height: 3rem;
-  padding: 0.5rem;
-  background-color: #333;
-  color: #fff;
   margin-right: 1.5rem;
-  border-radius: 50%;
+  padding-right: 0.5rem;
+  color: #666;
   text-align: center;
+  border-right: 0.1rem solid #666;
+`;
+
+export const Title = styled.p`
+  font-weight: 700;
+  font-size: 1.5rem;
+  @media screen and (min-width: 992px) {
+    font-size: 1.7rem;
+  }
 `;
