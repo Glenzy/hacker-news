@@ -5,7 +5,7 @@ export const List = styled.li`
   margin-bottom: 2rem;
 `;
 
-export const Anchor = styled.a.attrs({ target: '_blank' })`
+export const Anchor = styled.a.attrs({ target: '_blank', rel: 'noopener noreferrer' })`
   text-decoration: none;
   color: #333;
   font-weight: 700;
